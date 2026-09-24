@@ -34,7 +34,6 @@ struct ListingDetailsView: View {
             .padding()
 
             Divider()
-
             HStack{
                 VStack(alignment: .leading,spacing: 4) {
                     Text("Entire villa hosted by john Smith")
@@ -56,8 +55,25 @@ struct ListingDetailsView: View {
                     .clipShape(Circle())
             }
             .padding()
-
             Divider()
+
+            VStack(alignment: .leading,spacing: 15){
+                ForEach(0..<2){ items in
+                    HStack(spacing: 12){
+                        Image(systemName: "door.left.hand.open")
+                        VStack(alignment: .leading,spacing: 2) {
+                            Text("Self check-in")
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                            Text("superhost are experienced,highly rated hosts who are commited to providing great stars for guests.")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
+                        Spacer()
+                    }
+                }
+            } .padding()
+
         }
     }
 }
