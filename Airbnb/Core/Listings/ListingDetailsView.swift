@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ListingDetailsView: View {
+
     var body: some View {
         ScrollView{
-            ImagesSliderView()
-                .frame(height: 320)
-            VStack(alignment: .leading,spacing: 8){
+
+                ImagesSliderView()
+                    .frame(height: 320)
+            // Prporty description View
+            VStack(alignment: .leading,spacing: 16){
                   Text("Miami Villa")
                     .font(.title)
                 VStack(alignment: .leading) {
@@ -34,6 +38,7 @@ struct ListingDetailsView: View {
             .padding()
 
             Divider()
+            // Propery owner View
             HStack{
                 VStack(alignment: .leading,spacing: 4) {
                     Text("Entire villa hosted by john Smith")
@@ -57,7 +62,8 @@ struct ListingDetailsView: View {
             .padding()
             Divider()
 
-            VStack(alignment: .leading,spacing: 15){
+            // Check in view
+            VStack(alignment: .leading,spacing: 16){
                 ForEach(0..<2){ items in
                     HStack(spacing: 12){
                         Image(systemName: "door.left.hand.open")
@@ -74,6 +80,97 @@ struct ListingDetailsView: View {
                 }
             } .padding()
 
+            Divider()
+
+            // Bedrooms View
+            VStack(alignment: .leading,spacing: 16){
+                Text("Where You'll sleep")
+                    .font(.headline)
+                ScrollView(.horizontal,showsIndicators: false){
+                    HStack(spacing: 15){
+                        ForEach(1..<5){ items in
+                            VStack(alignment: .leading, spacing:5){
+                                Image(systemName: "bed.double")
+                                Text("Bedroom\(items)")
+                                    .font(.caption)
+                            }
+                            .frame(width: 132,height: 100)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(lineWidth: 1)
+                                    .foregroundStyle(.gray)
+                            }
+                        }
+
+                    }
+                }
+            }.padding()
+
+            Divider()
+
+            // lisiting emenities view
+            VStack(alignment: .leading,spacing: 16){
+                Text("What this place offers")
+                    .font(.headline)
+                    ForEach(0..<5){ features in
+                        HStack(){
+                            Image(systemName: "wifi")
+                                .frame(width: 30)
+                            Text("Wifi")
+                                .font(.footnote)
+                            Spacer()
+                        }
+                    }
+            }
+            .padding()
+
+            Divider()
+
+            VStack(alignment: .leading,spacing: 16){
+                Text("Where you'll be")
+                    .font(.headline)
+               Map()
+                    .frame(height: 200)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            .padding()
+
+        }
+        .ignoresSafeArea()
+        .padding(.bottom,80)
+        .overlay(alignment: .bottom) {
+            VStack(alignment: .leading,spacing: 16) {
+                Divider()
+                    .padding(.bottom)
+                HStack(){
+                    VStack(alignment: .leading){
+                        Text("$500")
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                        Text("Total before taxes")
+                        Text("Oct 15-20")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .underline()
+                    }
+                    Spacer()
+
+                    Button {
+                        print("Pressed")
+                    } label: {
+                        Text("Reserved")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.white)
+                            .frame(width: 140,height: 40)
+                            .background(.pink)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+
+                }
+                .padding(.horizontal,32)
+            }.frame(height: 80)
+            .background(.white)
         }
     }
 }
