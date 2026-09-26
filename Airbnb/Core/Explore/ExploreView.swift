@@ -8,24 +8,34 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @State var isfilterTap : Bool = false
     var body: some View {
         NavigationStack{
-            VStack{
-                SearchAndFilterBar()
-                ScrollView{
-                    LazyVStack(spacing: 32){
-                        ForEach(0...10,id: \.self){ listing in
-                            NavigationLink(value: listing){
-                                ListingItemView().frame(height: 400)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                            }
-                            .foregroundStyle(.primary)
+            
+            if isfilterTap{
+                DestinationSearchView(isfilterTap: $isfilterTap)
+            }else{
+                VStack{
+                    SearchAndFilterBar().onTapGesture {
+                        withAnimation(.snappy){
+                            isfilterTap.toggle()
                         }
                     }
-                }
-                .padding()
-                .navigationDestination(for: Int.self) { items in
-                    ListingDetailsView()
+                    ScrollView{
+                        LazyVStack(spacing: 32){
+                            ForEach(0...10,id: \.self){ listing in
+                                NavigationLink(value: listing){
+                                    ListingItemView().frame(height: 400)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                }
+                                .foregroundStyle(.primary)
+                            }
+                        }
+                    }
+                    .padding()
+                    .navigationDestination(for: Int.self) { items in
+                        ListingDetailsView()
+                    }
                 }
             }
         }
