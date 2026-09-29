@@ -22,7 +22,6 @@ struct TabBarView: View {
                 .tabItem {
                    Label("Profile", systemImage: "person")
                 }
-
         }
     }
 }
