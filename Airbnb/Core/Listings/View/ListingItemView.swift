@@ -29,7 +29,7 @@ struct ListingItemView: View {
                     Text("Nov 3-10")
                         .foregroundStyle(.gray)
                     HStack{
-                        Text("\(listing.pricePerNight)")
+                        Text("$\(listing.pricePerNight)")
                             .fontWeight(.bold)
                         Text("Night")
                     }
@@ -40,7 +40,7 @@ struct ListingItemView: View {
                 // Rating
                 HStack(spacing: 2){
                     Image(systemName: "star.fill")
-                    Text("\(listing.rating)")
+                    Text(listing.rating.formatted(.number.precision(.fractionLength(0...2))))
                         .bold()
                 }
             }

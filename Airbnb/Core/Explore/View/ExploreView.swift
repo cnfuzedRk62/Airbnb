@@ -25,7 +25,7 @@ struct ExploreView: View {
                         LazyVStack(spacing: 32){
                             ForEach(viewModel.listing,id: \.self){ listing in
                                 NavigationLink(value: listing){
-                                    ListingItemView(listing: listing).frame(height: 400)
+                                    ListingItemView(listing: listing).frame(height: 410)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
                                 .foregroundStyle(.primary)
