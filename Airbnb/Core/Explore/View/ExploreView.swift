@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ExploreView: View {
     @State var isfilterTap : Bool = false
+    @StateObject var viewModel = ExploreViewModel(service: ExploreService())
     var body: some View {
         NavigationStack{
-            
             if isfilterTap{
                 DestinationSearchView(isfilterTap: $isfilterTap)
             }else{
@@ -23,9 +23,9 @@ struct ExploreView: View {
                     }
                     ScrollView{
                         LazyVStack(spacing: 32){
-                            ForEach(0...10,id: \.self){ listing in
+                            ForEach(viewModel.listing,id: \.self){ listing in
                                 NavigationLink(value: listing){
-                                    ListingItemView().frame(height: 400)
+                                    ListingItemView(listing: listing).frame(height: 400)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
                                 .foregroundStyle(.primary)
@@ -33,8 +33,8 @@ struct ExploreView: View {
                         }
                     }
                     .padding()
-                    .navigationDestination(for: Int.self) { items in
-                        ListingDetailsView()
+                    .navigationDestination(for: Listing.self) { listing in
+                        ListingDetailsView(listing: listing)
                     }
                 }
             }

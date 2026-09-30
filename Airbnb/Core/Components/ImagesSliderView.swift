@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ImagesSliderView: View {
 
-    var images = ["property-1","property-2","property-3","property-4"]
+    let listing : Listing
 
     var body: some View {
         // Image
         TabView{
-            ForEach(images,id: \.self){ image in
+            ForEach(listing.imagesUrls,id: \.self){ image in
                 Image(image)
                     .resizable()
                     .scaledToFill()
@@ -25,5 +25,5 @@ struct ImagesSliderView: View {
 }
 
 #Preview {
-    ImagesSliderView()
+    ImagesSliderView(listing : DeveloperPreview.sharedInstance.listing[0])
 }

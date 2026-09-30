@@ -9,6 +9,8 @@ import Foundation
 
 class DeveloperPreview {
 
+    static let sharedInstance = DeveloperPreview()
+
     var listing: [Listing] = [
 
         .init(

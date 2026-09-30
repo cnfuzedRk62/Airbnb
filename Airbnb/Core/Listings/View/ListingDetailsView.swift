@@ -9,11 +9,11 @@ import SwiftUI
 import MapKit
 
 struct ListingDetailsView: View {
-
+    let listing : Listing
     var body: some View {
         ScrollView{
 
-                ImagesSliderView()
+            ImagesSliderView(listing: listing)
                     .frame(height: 320)
             // Prporty description View
             VStack(alignment: .leading,spacing: 16){
@@ -176,5 +176,5 @@ struct ListingDetailsView: View {
 }
 
 #Preview {
-    ListingDetailsView()
+    ListingDetailsView(listing: DeveloperPreview.sharedInstance.listing[0])
 }

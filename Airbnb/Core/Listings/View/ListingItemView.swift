@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ListingItemView: View {
 
+    let listing : Listing
+
     var body: some View {
         VStack(spacing: 8){
             // Image
-            ImagesSliderView()
+            ImagesSliderView(listing: listing)
             .frame(height: 320)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .tabViewStyle(.page)
@@ -20,14 +22,14 @@ struct ListingItemView: View {
             HStack(alignment: .top){
                 // Details
                 VStack(alignment: .leading) {
-                    Text("Miami,Florida")
+                    Text("\(listing.city),\(listing.state)")
                         .fontWeight(.bold)
                     Text("12 mi away")
                         .foregroundStyle(.gray)
                     Text("Nov 3-10")
                         .foregroundStyle(.gray)
                     HStack{
-                        Text("$567")
+                        Text("\(listing.pricePerNight)")
                             .fontWeight(.bold)
                         Text("Night")
                     }
@@ -38,7 +40,7 @@ struct ListingItemView: View {
                 // Rating
                 HStack(spacing: 2){
                     Image(systemName: "star.fill")
-                    Text("4.86")
+                    Text("\(listing.rating)")
                         .bold()
                 }
             }
@@ -48,5 +50,5 @@ struct ListingItemView: View {
 }
 
 #Preview {
-    ListingItemView()
+    ListingItemView(listing: DeveloperPreview.sharedInstance.listing[0])
 }
