@@ -13,10 +13,10 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack{
             if isfilterTap{
-                DestinationSearchView(isfilterTap: $isfilterTap)
+                DestinationSearchView(exploreVm: viewModel, searchText: viewModel.destinationText, isfilterTap: $isfilterTap)
             }else{
                 VStack{
-                    SearchAndFilterBar().onTapGesture {
+                    SearchAndFilterBar(searchedText: viewModel.destinationText).onTapGesture {
                         withAnimation(.snappy){
                             isfilterTap.toggle()
                         }

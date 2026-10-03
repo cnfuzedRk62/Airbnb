@@ -9,21 +9,7 @@ import SwiftUI
 import MapKit
 
 struct ListingDetailsView: View {
-    let listing: Listing
-    @State private var cameraPosition: MapCameraPosition
-
-    init(listing: Listing) {
-        self.listing = listing
-        // Initialize map camera to a reasonable default or based on listing location if available
-        // TODO: If Listing has latitude/longitude, replace the coordinates below with those values.
-        let region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D().getRegion(listing.city),
-            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-        )
-        self._cameraPosition = State(initialValue: .region(region))
-    }
-
-
+    let listing : Listing
     var body: some View {
         ScrollView{
 
@@ -143,7 +129,7 @@ struct ListingDetailsView: View {
             VStack(alignment: .leading,spacing: 16){
                 Text("Where you'll be")
                     .font(.headline)
-               Map(position: $cameraPosition)
+               Map()
                     .frame(height: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
@@ -190,7 +176,5 @@ struct ListingDetailsView: View {
 }
 
 #Preview {
-    ListingDetailsView(
-        listing: DeveloperPreview.sharedInstance.listing[2]
-    )
+    ListingDetailsView(listing: DeveloperPreview.sharedInstance.listing[2])
 }

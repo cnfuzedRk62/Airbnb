@@ -15,12 +15,14 @@ enum DestinationSearchOption {
 
 
 struct DestinationSearchView: View {
-    @State private var searchText : String = ""
+    @ObservedObject var exploreVm : ExploreViewModel
+    @State var searchText : String
     @Binding var isfilterTap : Bool
     @State private var selectedOption : DestinationSearchOption = .location
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var guestsCount = 0
+
 
     var body: some View {
         VStack(spacing: 40){
@@ -28,7 +30,7 @@ struct DestinationSearchView: View {
             HStack{
                 Button {
                     withAnimation(.snappy){
-                        isfilterTap.toggle()
+                       isfilterTap.toggle()
                     }
                 } label: {
                     Image(systemName: "xmark.circle")
@@ -38,9 +40,11 @@ struct DestinationSearchView: View {
 
                 Spacer()
 
-                if !searchText.isEmpty{
+                if !exploreVm.destinationText.isEmpty{
                     Button("Clear") {
-                        searchText = ""
+                        exploreVm.destinationText = ""
+                        exploreVm.filterList()
+                        isfilterTap.toggle()
                     }.font(.title2)
                         .fontWeight(.semibold)
                         .foregroundStyle(.black)
@@ -59,8 +63,12 @@ struct DestinationSearchView: View {
                             Image(systemName: "magnifyingglass")
                                 .imageScale(.small)
 
-                            TextField("Search Destionation", text: $searchText)
+                            TextField("Search Destionation", text: $exploreVm.destinationText)
                                 .font(.subheadline)
+                                .onSubmit {
+                                    exploreVm.filterList()
+                                    isfilterTap.toggle()
+                                }
                         }.frame(height: 44)
                         .padding(.horizontal)
                         .overlay{
@@ -95,7 +103,7 @@ struct DestinationSearchView: View {
 
                         Divider()
 
-                        DatePicker("From", selection: $endDate,displayedComponents: .date)
+                        DatePicker("To", selection: $endDate,displayedComponents: .date)
                             .foregroundStyle(.gray)
                     }.padding()
 
@@ -145,7 +153,7 @@ struct DestinationSearchView: View {
 }
 
 #Preview {
-    DestinationSearchView(isfilterTap: .constant(false))
+    DestinationSearchView(exploreVm: ExploreViewModel(service: ExploreService()), searchText: "", isfilterTap: .constant(false))
 }
 
 // custom view modifier
