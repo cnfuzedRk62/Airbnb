@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExploreView: View {
     @State var isfilterTap : Bool = false
-    @StateObject var viewModel = ExploreViewModel(service: ExploreService())
+    @StateObject var viewModel = ExploreViewModel(service: Service())
     var body: some View {
         NavigationStack{
             if isfilterTap{

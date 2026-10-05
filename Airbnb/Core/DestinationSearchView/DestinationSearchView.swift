@@ -153,7 +153,7 @@ struct DestinationSearchView: View {
 }
 
 #Preview {
-    DestinationSearchView(exploreVm: ExploreViewModel(service: ExploreService()), searchText: "", isfilterTap: .constant(false))
+    DestinationSearchView(exploreVm: ExploreViewModel(service: Service()), searchText: "", isfilterTap: .constant(false))
 }
 
 // custom view modifier

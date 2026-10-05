@@ -13,9 +13,9 @@ class ExploreViewModel: ObservableObject{
     @Published var listing = [Listing]()
     @Published var copyListing =  [Listing]()
     var destinationText = ""
-    let service : ListingProtocol
+    let service : CommonProtocol
 
-    init(service: ListingProtocol) {
+    init(service: CommonProtocol) {
         self.service = service
         Task{ await fetchListing()}
     }

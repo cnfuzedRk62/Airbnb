@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State var isLoginPresent : Bool = false
     var body: some View {
 
         NavigationStack{
@@ -23,7 +24,7 @@ struct ProfileView: View {
                         }
 
                         Button {
-                            print("Login")
+                            isLoginPresent.toggle()
                         } label: {
                             Text("Login")
                                 .font(.title2)
@@ -51,7 +52,9 @@ struct ProfileView: View {
                     ProfileOptionRowView(image: "gear", title: "Accessibility")
                     ProfileOptionRowView(image: "questionmark.circle", title: "Visit the help center.")
                 }.padding(.vertical)
-            }
+            }.popover(isPresented: $isLoginPresent, content: {
+                LoginView()
+            })
             .padding()
 
         }
