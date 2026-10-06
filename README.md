@@ -18,3 +18,8 @@ This project is built using   SwiftUI.
 
 - `main` - Production/stable code
 - `Develop` - Development branch
+
+## Login Credentials
+you can login using below dummy creadentials
+email:-ravinderCoder11@gmail.com
+password:-123456
