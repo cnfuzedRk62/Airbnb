@@ -1,0 +1,47 @@
+//
+//  ExploreView.swift
+//  Airbnb
+//
+//  Created by Ravi on 24/09/26.
+//
+
+import SwiftUI
+
+struct ExploreView: View {
+    @State var isfilterTap : Bool = false
+    @StateObject var viewModel = ExploreViewModel(service: Service())
+    var body: some View {
+        NavigationStack{
+            if isfilterTap{
+                DestinationSearchView(exploreVm: viewModel, searchText: viewModel.destinationText, isfilterTap: $isfilterTap)
+            }else{
+                VStack{
+                    SearchAndFilterBar(searchedText: viewModel.destinationText).onTapGesture {
+                        withAnimation(.snappy){
+                            isfilterTap.toggle()
+                        }
+                    }
+                    ScrollView{
+                        LazyVStack(spacing: 32){
+                            ForEach(viewModel.listing,id: \.self){ listing in
+                                NavigationLink(value: listing){
+                                    ListingItemView(listing: listing).frame(height: 410)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                }
+                                .foregroundStyle(.primary)
+                            }
+                        }
+                    }
+                    .padding()
+                    .navigationDestination(for: Listing.self) { listing in
+                        ListingDetailsView(listing: listing)
+                    }
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    ExploreView()
+}
